@@ -84,7 +84,7 @@
     <h1><?php echo $osintercom; ?></h1>
     <div id="chat-wrap"><div id="chat-area" ></div></div>
     <div id="name-area" class="pull-right"></div>
-    <a class='help' role='button' data-toggle='collapse' href='#help' aria-expanded='false' aria-controls='logs'>help</a> > 
+    <a class='help' role='button' data-toggle='collapse' href='#help' aria-expanded='false' aria-controls='logs'>help</a> - 
     <a class='logs' role='button' data-toggle='collapse' href='#logs' aria-expanded='false' aria-controls='logs'>logs</a>
     <form id="send-message-area" class="form" role="form">
         <textarea id="sendie" class="form-control" rows="1" maxlength="100" placeholder="Type your message here and press enter ..."></textarea>
