@@ -2,7 +2,7 @@
 require_once('config.php');
 $log_url = '../'.$log_url;
 
-$function = mysql_real_escape_string($_POST['function']);
+$function = htmlentities(strip_tags($_POST['function']));
 $log = array();
 
 switch($function)
