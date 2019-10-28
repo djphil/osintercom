@@ -1,6 +1,6 @@
 // OpenSim Intercom v0.1 by djphil (CC-BY-NC-SA 4.0)
 
-string  url     = "http://domain.com/osintercom/chat.php";
+string  url     = "http://domain.com/osintercom";
 integer face    = 0;
 integer weight  = 512;
 integer height  = 512;
