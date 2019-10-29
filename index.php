@@ -1,22 +1,18 @@
-<?php require_once('inc/config.php'); ?>
+<?php include_once('inc/config.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title><?php echo $osintercom; ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="author" content="Philippe Lemaire (djphil)">
     <link rel="icon" href="img/favicon.ico">
     <link rel="author" href="inc/humans.txt" />
-
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/intercom.js"></script>
-
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/intercom.css" type="text/css" />
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/intercom.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/intercom.js"></script>
     <script>
     // get nickname from OpenSim
     var name = getQuerystring('nickname');
@@ -73,6 +69,7 @@
                 }
             }
         });
+
         // display name on page
         $("#name-area").html("Welcome <span>" + name + "</span>");
     });
@@ -81,7 +78,11 @@
 
 <body onload="setInterval('chat.update()', 1000)">
 <div id="page-wrap">
-    <h1><?php echo $osintercom; ?></h1>
+    <h1 class="center">
+        <i class="glyphicon glyphicon-grain"></i>
+        <?php echo $osintercom; ?>
+        <i class="glyphicon glyphicon-grain"></i>
+    </h1>
     <div id="chat-wrap"><div id="chat-area" ></div></div>
     <div id="name-area" class="pull-right"></div>
     <a class='help' role='button' data-toggle='collapse' href='#help' aria-expanded='false' aria-controls='logs'>help</a> - 
@@ -89,10 +90,10 @@
     <form id="send-message-area" class="form" role="form">
         <textarea id="sendie" class="form-control" rows="1" maxlength="100" placeholder="Type your message here and press enter ..."></textarea>
     </form>
-
     <div id="logs" class="collapse">
         <?php 
-        $content = file_get_contents($log_url);
+        if (file_exists($log_url)) $content = file_get_contents($log_url);
+        else $content = "Welcome to ".$osintercom;
         echo '<h1>'.$osintercom.' Logs</h1>';
         echo '<pre>';
         echo $content;
