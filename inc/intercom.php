@@ -48,11 +48,11 @@ switch($function)
     break;
          
     case('send'):
-    $nickname = htmlentities(strip_tags($_POST['nickname']));
+    $nickname = trim(htmlentities(strip_tags($_POST['nickname'])));
     $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
-    $message = htmlentities(strip_tags($_POST['message']));
+    $message = trim(htmlentities(strip_tags($_POST['message'])));
 
-    if (($message) != "\n")
+    if (!empty($message) && $message != "\n")
     {
         if (preg_match($reg_exUrl, $message, $url))
         {
