@@ -49,4 +49,12 @@ default
             llRegionSayTo(aviuid, PUBLIC_CHANNEL, "\nIntercom @ " + body);
         }
     }
+
+    changed(integer change)
+    {
+        if (change & CHANGED_OWNER)
+        {
+            llResetScript();
+        }
+    }
 }

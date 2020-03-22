@@ -1,2 +1,2 @@
-# osintercom v0.1
-OpenSim Intercom v0.1 by djphil (CC-BY-NC-SA 4.0)
+# osintercom v0.2
+OpenSim Intercom v0.2 by djphil (CC-BY-NC-SA 4.0)

@@ -1,13 +1,21 @@
+<?php require_once('config.php'); ?>
+<?php require_once('smileys.php'); ?>
 <?php
-require_once('config.php');
-$log_url = '../'.$log_url;
-
-$function = htmlentities(strip_tags($_POST['function']));
 $log = array();
+$log_url = '../'.$log_url;
+$function = !empty($_POST['function']) ? $_POST['function'] : FALSE;
+if (!$function) exit('Access denied ...');
+$function = htmlentities(strip_tags($function));
 
 switch($function)
 {
     case('getState'):
+
+    if (filesize($log_url) > $log_size)
+    {
+        file_put_contents($log_url, '');
+    }
+
     if (file_exists($log_url))
     {
         $lines = file($log_url);
@@ -18,12 +26,13 @@ switch($function)
 
     case('update'):
     $state = $_POST['state'];
+
     if (file_exists($log_url))
     {
         $lines = file($log_url);
     }
 
-    $count =  count($lines);
+    $count = count($lines);
     
     if ($state == $count)
     {
@@ -35,6 +44,7 @@ switch($function)
     {
         $text= array();
         $log['state'] = $state + count($lines) - $state;
+        if ($smileys) $lines = get_smileys($lines);
 
         foreach ($lines as $line_num => $line)
         {
@@ -46,19 +56,20 @@ switch($function)
         $log['text'] = $text; 
     }
     break;
-         
+
     case('send'):
     $nickname = trim(htmlentities(strip_tags($_POST['nickname'])));
-    $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+    $regexurl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
     $message = trim(htmlentities(strip_tags($_POST['message'])));
 
-    if (!empty($message) && $message != "\n")
+    if (!empty($message) && $message <> "\n")
     {
-        if (preg_match($reg_exUrl, $message, $url))
+        if (preg_match($regexurl, $message, $url))
         {
-            $message = preg_replace($reg_exUrl, '<a href="'.$url[0].'" target="_blank">'.$url[0].'</a>', $message);
+            $message = preg_replace($regexurl, '[ <a href="'.$url[0].'" target="_blank">url <i class="glyphicon glyphicon-link"></i></a> ]', $message);
         }
-        fwrite(fopen($log_url, 'a'), "<span>". $nickname . "</span>" . $message = str_replace("\n", " ", ": ".$message) . "\n"); 
+        
+        fwrite(fopen($log_url, 'a'), "<span>".$nickname."</span> ".$message = str_replace("\n", " ", " : ".$message)."\n");
     }
     break;
 }

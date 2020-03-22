@@ -14,7 +14,7 @@
   ...
 
 /* SITE */
-  Last update: 01/01/2016
+  Last update: 01/01/2020
   Standards: HTML5, CSS3
   Components: Bootstrap, jQuery...
   Software: Sublime Text, NotePad++
