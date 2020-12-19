@@ -129,9 +129,8 @@ if (!name || name === ' ') {
 // Default name is 'Visitor'
 if (!name || name === ' ' || name === undefined || name === "null") {name = "Visitor";}
 
-// Strip tags
-name = name.replace(/(<([^>]+)>)/ig, "");
-name = decodeURI(name);
+// Unescape nickname
+name = decodeURIComponent(name);
 
 // Kick off chat
 var chat = new Chat();
